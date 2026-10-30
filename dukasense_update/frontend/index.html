@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DukaSense</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80'%3E%3Crect width='100' height='80' rx='14' fill='%23000'/%3E%3Cg fill='none' stroke='%23f2f3f2' stroke-width='7' stroke-linecap='round'%3E%3Cpath d='M16 55C27 61 73 61 84 55'/%3E%3Cpath d='M16 55C4 42 10 26 34 22'/%3E%3Cpath d='M84 55C96 42 90 26 66 22'/%3E%3Cline x1='50' y1='14' x2='50' y2='50'/%3E%3C/g%3E%3Cline x1='50' y1='50' x2='50' y2='64' stroke='%231FCB93' stroke-width='7' stroke-linecap='round'/%3E%3Ccircle cx='50' cy='14' r='4.5' fill='%231FCB93'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="logo-mark" viewBox="0 0 100 80" fill="none">
+    <path d="M 16 55 C 27 61 73 61 84 55" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
+    <path d="M 16 55 C 4 42 10 26 34 22" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
+    <path d="M 84 55 C 96 42 90 26 66 22" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
+    <line x1="50" y1="14" x2="50" y2="50" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
+    <line x1="50" y1="50" x2="50" y2="64" stroke="#1FCB93" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="50" cy="14" r="4.5" fill="#1FCB93"/>
+  </symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9M4 9v11h16V9M4 9c0 2 3 2 4 0 1 2 3 2 4 0 1 2 3 2 4 0 1 2 4 2 4 0M10 20v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7.5L12 3l9 4.5v9L12 21l-9-4.5zM3 7.5L12 12l9-4.5M12 12v9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18v.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l2.2 6.2L21 12l-6.8 2.8L12 21l-2.2-6.2L3 12l6.8-2.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.300 8-3V6M4 12c0 1.700 3.600 3 8 3s8-1.300 8-3" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 11v6M12 7.500v.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 20h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.500A8 8 0 1 1 9.500 4 6.500 6.500 0 0 0 20 14.500z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 1 1 12 0v6l1.500 2h-15zM10 21h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+</svg>
+
+<div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="grain" aria-hidden="true"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<input type="file" id="uploadInput" accept=".csv,text/csv" hidden>
+
+<div id="shell" class="is-empty">
+  <aside class="sidebar glass" id="sidebar" aria-label="Sidebar">
+    <a class="brand" href="/" aria-label="DukaSense home">
+      <svg viewBox="0 0 100 80" aria-hidden="true"><use href="#logo-mark"/></svg>
+      <span><span class="brand-name">Duka<em>Sense</em></span><span class="brand-sub">Retail intelligence</span></span>
+    </a>
+    <div class="nav-scroll">
+      <nav class="nav-list" id="tabs" aria-label="Main">
+        <span class="nav-indicator" id="navIndicator"></span>
+        <div class="nav-group">Overview</div>
+        <button class="nav-item tab" data-view="dashboard"><svg><use href="#i-grid"/></svg>Dashboard</button>
+        <button class="nav-item tab" data-view="analytics"><svg><use href="#i-bars"/></svg>Product performance</button>
+        <button class="nav-item tab" data-view="shops"><svg><use href="#i-store"/></svg>Shop comparison</button>
+        <div class="nav-group">Stock</div>
+        <button class="nav-item tab" data-view="inventory"><svg><use href="#i-box"/></svg>Inventory</button>
+        <button class="nav-item tab" data-view="alerts"><svg><use href="#i-alert"/></svg>Reorder alerts <span class="nav-badge red" id="navAlertCount"></span></button>
+        <button class="nav-item tab" data-view="slow"><svg><use href="#i-clock"/></svg>Slow-moving <span class="nav-badge" id="navSlowCount"></span></button>
+        <div class="nav-group">Guidance</div>
+        <button class="nav-item tab" data-view="recommendations"><svg><use href="#i-spark"/></svg>Recommendations <span class="nav-badge" id="navRecCount"></span></button>
+        <div class="nav-group">Workspace</div>
+        <button class="nav-item tab" data-view="data"><svg><use href="#i-db"/></svg>Data</button>
+        <button class="nav-item tab" data-view="about"><svg><use href="#i-info"/></svg>How it works</button>
+      </nav>
+    </div>
+    <div class="sidebar-foot">
+      <button class="nav-item" id="replaceBtn" type="button"><svg><use href="#i-upload"/></svg>Load another CSV</button>
+      <button class="nav-item" id="clearBtn" type="button"><svg><use href="#i-trash"/></svg>Clear data</button>
+    </div>
+  </aside>
+  <div class="drawer-scrim" id="scrim"></div>
+
+  <div class="app-main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Open menu"><svg><use href="#i-menu"/></svg></button>
+      <a class="brand" href="/" aria-label="DukaSense home">
+        <svg viewBox="0 0 100 80" aria-hidden="true"><use href="#logo-mark"/></svg>
+        <span><span class="brand-name">Duka<em>Sense</em></span></span>
+      </a>
+      <label class="search">
+        <svg><use href="#i-search"/></svg>
+        <input type="search" id="globalSearch" placeholder="Search products or categories" aria-label="Search products">
+        <kbd>/</kbd>
+      </label>
+      <span class="spacer"></span>
+      <span class="badge" data-tone="demo" id="dataTag" title="This is not live data">Synthetic demo data</span>
+      <button class="icon-btn" id="bellBtn" type="button" aria-label="Open reorder alerts"><svg><use href="#i-bell"/></svg><span class="dot" id="bellDot" hidden></span></button>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch to light mode"><svg><use href="#i-moon"/></svg></button>
+    </header>
+
+    <div id="toast" class="toast glass-solid" role="status" aria-live="polite" hidden></div>
+    <div id="loading" class="loading glass-solid" hidden><span class="spinner"></span> Working on it</div>
+
+    <!-- Shown until a CSV is loaded -->
+    <section class="welcome" id="welcome" hidden>
+      <div class="welcome-text enter">
+        <svg class="logo-big" viewBox="0 0 100 80" aria-hidden="true"><use href="#logo-mark"/></svg>
+        <h1>Know what to restock before the shelf runs empty</h1>
+        <p>Upload your shop's sales records and DukaSense turns them into sales, stock and reorder guidance in seconds. Nothing is kept after you restart the app.</p>
+        <p class="small">The file needs SALE, PRODUCT_CATALOGUE and INVENTORY_SNAPSHOT rows. The sample file shows the layout.</p>
+        <div class="welcome-actions">
+          <button class="btn btn-primary" id="sampleBtn" type="button">Try the sample data</button>
+        </div>
+      </div>
+      <label class="drop glass glass-hover enter" id="dropZone" for="uploadInput" style="--i:2">
+        <svg><use href="#i-upload"/></svg>
+        <span class="drop-title">Drop a CSV here</span>
+        <span class="muted">or click to choose a file</span>
+        <span class="muted small">Up to 25 MB</span>
+      </label>
+    </section>
+
+    <!-- Shown once data is loaded -->
+    <div id="app" hidden>
+      <div class="page-head">
+        <div>
+          <h1 class="page-title" id="shopName">All shops</h1>
+          <p class="page-sub" id="periodLine"></p>
+        </div>
+      </div>
+
+      <section class="filterbar glass" aria-label="Filters">
+        <label class="field"><span>Shop</span><select id="shopSelect"><option value="">All shops</option></select></label>
+        <label class="field date"><span>From</span><input type="date" id="startDate"></label>
+        <label class="field date"><span>To</span><input type="date" id="endDate"></label>
+        <button class="btn btn-secondary btn-sm" id="resetDates" type="button">Full period</button>
+        <button class="btn btn-secondary btn-sm" id="refreshBtn" type="button">Refresh</button>
+      </section>
+
+      <main id="main">
+        <section class="view active" id="view-dashboard">
+          <div class="grid stats" id="kpis"></div>
+          <div class="grid two">
+            <div class="panel glass glass-hover">
+              <div class="panel-head"><h2 class="panel-title">Revenue and gross profit</h2><span class="muted small" id="trendNote"></span></div>
+              <div class="chart-box"><canvas id="trendChart"></canvas></div>
+            </div>
+            <div class="panel glass glass-hover">
+              <div class="panel-head"><h2 class="panel-title">Where the money comes from</h2></div>
+              <div class="chart-box"><canvas id="categoryChart"></canvas></div>
+            </div>
+          </div>
+          <div class="panel glass">
+            <div class="panel-head"><h2 class="panel-title">Sort these out first</h2>
+              <button class="link" data-goto="recommendations">See all recommendations</button></div>
+            <div id="topRecs" class="rec-list"></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-analytics">
+          <div class="grid eq">
+            <div class="panel glass glass-hover">
+              <div class="panel-head"><h2 class="panel-title">Top products</h2>
+                <select id="productSort" aria-label="Rank products by" style="width:auto">
+                  <option value="revenue_kes">By revenue</option>
+                  <option value="units_sold">By units sold</option>
+                  <option value="gross_profit_kes">By gross profit</option>
+                </select></div>
+              <div class="chart-box tall"><canvas id="productChart"></canvas></div>
+            </div>
+            <div class="panel glass glass-hover">
+              <div class="panel-head"><h2 class="panel-title">Gross margin by category</h2></div>
+              <div class="chart-box tall"><canvas id="marginChart"></canvas></div>
+            </div>
+          </div>
+          <div class="panel glass">
+            <div class="panel-head"><h2 class="panel-title">Product performance</h2></div>
+            <div class="table-wrap"><table class="data-table" id="perfTable"></table></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-shops">
+          <div class="panel glass" id="shopCompareCard">
+            <div class="panel-head"><div><h2 class="panel-title">Shop comparison</h2><p class="panel-sub">All shops for the selected dates. Click a row to focus on that shop.</p></div></div>
+            <div class="chart-box"><canvas id="shopChart"></canvas></div>
+          </div>
+          <div class="panel glass">
+            <div class="table-wrap"><table class="data-table" id="shopTable"></table></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-inventory">
+          <div class="panel glass">
+            <div class="panel-head">
+              <h2 class="panel-title">Products and stock</h2>
+              <div class="tools">
+                <input type="search" id="searchInput" placeholder="Search by product or category" aria-label="Search products">
+                <select id="statusFilter" aria-label="Stock status">
+                  <option value="">All stock</option><option value="REORDER">Needs reorder</option><option value="OK">Stock is fine</option>
+                </select>
+                <select id="categoryFilter" aria-label="Category"><option value="">All categories</option></select>
+                <label class="check"><input type="checkbox" id="slowFilter"> Slow-moving only</label>
+              </div>
+            </div>
+            <p class="muted small" id="invSummary" style="margin-bottom:10px"></p>
+            <div class="table-wrap"><table class="data-table" id="productTable"></table></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-alerts">
+          <div class="panel glass">
+            <div class="panel-head"><div><h2 class="panel-title">Reorder alerts</h2><p class="panel-sub" id="alertSummary"></p></div></div>
+            <div class="table-wrap"><table class="data-table" id="alertTable"></table></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-slow">
+          <div class="panel glass">
+            <div class="panel-head"><div><h2 class="panel-title">Slow-moving products</h2><p class="panel-sub" id="slowSummary"></p></div></div>
+            <div class="table-wrap"><table class="data-table" id="slowTable"></table></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-recommendations">
+          <div class="panel glass">
+            <div class="panel-head">
+              <h2 class="panel-title">Recommendations</h2>
+              <div class="tools">
+                <select id="recType" aria-label="Type">
+                  <option value="">All types</option>
+                  <option value="low_stock">Low stock</option>
+                  <option value="replenishment">Replenishment</option>
+                  <option value="low_margin">Low margin</option>
+                  <option value="slow_moving">Slow-moving</option>
+                  <option value="strong_seller">Strong seller</option>
+                </select>
+                <select id="recPriority" aria-label="Priority">
+                  <option value="">All priorities</option><option value="high">High</option>
+                  <option value="medium">Medium</option><option value="low">Low</option>
+                </select>
+              </div>
+            </div>
+            <p class="muted small" id="recSummary" style="margin-bottom:14px"></p>
+            <div id="recList" class="rec-list"></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-data">
+          <div class="panel glass">
+            <div class="panel-head"><div><h2 class="panel-title">Active dataset</h2><p class="panel-sub">Held in memory for this session only.</p></div>
+              <div class="tools">
+                <button class="btn btn-primary btn-sm" id="uploadBtn2" type="button">Upload a CSV</button>
+                <button class="btn btn-secondary btn-sm" id="sampleBtn2" type="button">Load sample data</button>
+                <button class="btn btn-secondary btn-sm" id="clearBtn2" type="button">Clear</button>
+              </div></div>
+            <dl class="kv" id="dataInfo"></dl>
+          </div>
+        </section>
+
+        <section class="view" id="view-about">
+          <div class="panel glass">
+            <div class="panel-head"><h2 class="panel-title">How DukaSense works</h2></div>
+            <div class="steps">
+              <div><h3>Gross profit, not net profit</h3><p>Gross profit is revenue minus estimated cost of goods. Rent, wages, transport and electricity are not included.</p></div>
+              <div><h3>Rules, not a model</h3><p>Recommendations come from simple, explainable rules: stock cover against recent sales, margin against a threshold, and the slow-moving flag in your data. There is no trained model and nothing is forecast.</p></div>
+              <div><h3>Stock is a snapshot</h3><p>Stock levels come from one inventory snapshot and do not change with the date filter. Units sold and margin follow the dates you pick.</p></div>
+              <div><h3>Your data stays in memory</h3><p>An uploaded file is checked, held in memory and cleared when you restart the app. Every number on screen is calculated by the server.</p></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <span class="spacer"></span>
+    <footer class="footer">
+      <p>This is synthetic, historical demo data, not live. Stock comes from a single inventory snapshot. Recommendations follow simple rules, not a trained model, and are not forecasts. Gross profit is revenue minus estimated cost of goods, before rent, wages, transport and electricity. It is not net profit.</p>
+    </footer>
+  </div>
+</div>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
